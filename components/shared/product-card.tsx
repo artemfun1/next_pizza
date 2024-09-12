@@ -28,7 +28,7 @@ export const ProductCard: FC<Props> = ({
 				</div>
 
 				<Title text={name} size="sm" className="mb-1 mt-3 font-bold" />
-				<p className="text-sm text-gray-400">fdwvwv</p>
+				<p className="text-sm text-gray-400">Описание пиццы блаблаблаблаблабла</p>
 
 				<div className="flex justify-between items-center mt-4">
 					<span className="text-[20px]">
