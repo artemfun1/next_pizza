@@ -16,7 +16,6 @@ const cats = [
 	{id:6, name:"Напитки"},
 	{id:7, name:"Десерты"},
 	{id:8, name:"Десерты"},
-	
 ];
 const activeIndex = 0;
 
