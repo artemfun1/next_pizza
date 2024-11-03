@@ -13,10 +13,11 @@ model User {
 
   fullName String
   email    String   @unique
-  password String   
+  password String
   role     UserRole @default(USER)
+  verified DateTime
 
-  provider String?
+  provider   String?
   providerId String?
 
   cart             Cart?
@@ -106,7 +107,7 @@ model CartItem {
 
   quantity Int
 
-  ingredient Ingredient[]
+  ingredients Ingredient[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -145,9 +146,9 @@ model VerificationCode {
 
   code String @unique
 
-  @@unique([userId,code])
-
   createdAt DateTime @default(now())
+
+  @@unique([userId, code])
 }
 
 enum OrderStatus {

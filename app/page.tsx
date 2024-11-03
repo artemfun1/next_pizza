@@ -1,7 +1,7 @@
 import { Container, Filters, Title, TopBar } from "@/components/shared";
 import { ProductsGroupList } from "@/components/shared/products-group-list";
 
-'3/59'
+'5/20'
 
 
 export default function Home() {
