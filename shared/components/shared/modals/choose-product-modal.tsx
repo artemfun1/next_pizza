@@ -33,7 +33,7 @@ export const ChooseProductModal: React.FC<Props> = ({ className, product }) => {
           <ChoosePizzaForm
             imageUrl={product.imageUrl}
             name={product.name}
-            price={999}
+            price={product.items[0].price}
             ingredients={product.ingredients}
             items={product.items}
           />
@@ -41,7 +41,7 @@ export const ChooseProductModal: React.FC<Props> = ({ className, product }) => {
           <ChooseProductForm
             imageUrl={product.imageUrl}
             name={product.name}
-            price={999}
+            price={product.items[0].price}
           />
         )}
       </DialogContent>
