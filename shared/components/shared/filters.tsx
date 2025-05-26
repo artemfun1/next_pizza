@@ -1,5 +1,5 @@
 "use client";
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/utils";
 import { Input } from "../ui";
 import { CheckboxFiltersGroup } from "./checkbox-filters-group";
 import { RangeSlider } from "./range-slider";

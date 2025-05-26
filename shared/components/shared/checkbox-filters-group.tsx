@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/utils";
 import React, { useState } from "react";
 import { Input, Skeleton } from "../ui";
 import { FilterChecboxProps, FilterCheckbox } from "./filter-checkbox";
@@ -17,8 +17,8 @@ interface Props {
   onClickCheckbox?: (id: string) => void;
   defaultValues?: string[];
   loading?: boolean;
-	selected:Set<string>;
-	name?: string;
+  selected: Set<string>;
+  name?: string;
 }
 
 export const CheckboxFiltersGroup: React.FC<Props> = ({
@@ -30,8 +30,8 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
   searchInputPlaceholder = "Поиск...",
   loading,
   onClickCheckbox,
-	selected,
-	name,
+  selected,
+  name,
   defaultValues,
 }) => {
   const [showAll, setShowAll] = useState(false);
@@ -84,12 +84,12 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
             value={item.value}
             text={item.text}
             endAdornment={item.endAdornment}
-						name={name}
+            name={name}
           />
         ))}
       </div>
 
-      { limit && items.length > limit  && (
+      {limit && items.length > limit && (
         <div className={showAll ? "border-t border-t-neutral-100 mt-4" : ""}>
           <button
             onClick={() => setShowAll(!showAll)}
