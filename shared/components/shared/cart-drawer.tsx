@@ -50,14 +50,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
             <SheetHeader>
               <SheetTitle>
                 В корзине{" "}
-                <span className="font-bold">
-                  {items.length}{" "}
-                  {items.length === 1
-                    ? "товар"
-                    : items.length > 1 && items.length < 5
-                    ? "товара"
-                    : "товаров"}
-                </span>
+                <span className="font-bold">{items.length} товара</span>
               </SheetTitle>
             </SheetHeader>
           )}
