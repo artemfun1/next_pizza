@@ -10,7 +10,7 @@ import { Suspense } from 'react';
 import { GetSearchParams, findPizzas } from '@/shared/lib/find-pizzas';
 
 
-// "16/25"
+// "17/40"
 
 
 

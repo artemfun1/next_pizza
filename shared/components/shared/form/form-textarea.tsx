@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-// import { useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { Textarea } from "../../ui/textarea";
 import { ClearButton } from "../clear-button";
 
@@ -19,23 +19,23 @@ export const FormTextarea: React.FC<Props> = ({
   required,
   ...props
 }) => {
-  // const {
-  //   register,
-  //   formState: { errors },
-  //   watch,
-  //   setValue,
-  // } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+    watch,
+    setValue,
+  } = useFormContext();
 
-  // const value = watch(name);
-  // const errorText = errors[name]?.message as string;
+  const value = watch(name);
+  const errorText = errors[name]?.message as string;
 
-  // const onClickClear = () => {
-  //   setValue(name, "");
-  // };
+  const onClickClear = () => {
+    setValue(name, "");
+  };
 
   return (
     <div className={className}>
-      {/* <p className="font-medium mb-2">
+      <p className="font-medium mb-2">
         {label} {required && <span className="text-red-500">*</span>}
       </p>
 
@@ -45,7 +45,7 @@ export const FormTextarea: React.FC<Props> = ({
         {value && <ClearButton onClick={onClickClear} />}
       </div>
 
-      {errorText && <p className="text-red-500 text-sm mt-2">{errorText}</p>} */}
+      {errorText && <p className="text-red-500 text-sm mt-2">{errorText}</p>}
     </div>
   );
 };
