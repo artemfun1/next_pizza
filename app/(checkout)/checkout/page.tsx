@@ -13,14 +13,14 @@ import {
 } from '@/shared/components/shared';
 import { CheckoutFormValues, checkoutFormSchema } from '@/shared/constants';
 import { useCart } from '@/shared/hooks';
-// import { createOrder } from '@/app/actions';
 import toast from 'react-hot-toast';
 import React from 'react';
+import { createOrder } from '@/app/actions'
 // import { useSession } from 'next-auth/react';
 // import { Api } from '@/shared/services/api-client';
 
 export default function CheckoutPage() {
-  // const [submitting, setSubmitting] = React.useState(false);
+  const [submitting, setSubmitting] = React.useState(false);
   const { totalAmount, updateItemQuantity, items, removeCartItem, loading } = useCart();
   // const { data: session } = useSession();
 
@@ -51,26 +51,27 @@ export default function CheckoutPage() {
   //   }
   // }, [session]);
 
-  const onSubmit = async (data: CheckoutFormValues) => {
-    // try {
-    //   setSubmitting(true);
+  const onSubmit =  async(data: CheckoutFormValues) => {
 
-    //   const url = await createOrder(data);
+    try {
+      setSubmitting(true);
 
-    //   toast.error('Заказ успешно оформлен! 📝 Переход на оплату... ', {
-    //     icon: '✅',
-    //   });
+      const url = await createOrder(data);
 
-    //   if (url) {
-    //     location.href = url;
-    //   }
-    // } catch (err) {
-    //   console.log(err);
-    //   setSubmitting(false);
-    //   toast.error('Не удалось создать заказ', {
-    //     icon: '❌',
-    //   });
-    // }
+      toast.error('Заказ успешно оформлен! 📝 Переход на оплату... ', {
+        icon: '✅',
+      });
+console.log(url)
+      // if (url) {
+      //   location.href = url;
+      // }
+    } catch (err) {
+      console.log(err);
+      setSubmitting(false);
+      toast.error('Не удалось создать заказ', {
+        icon: '❌',
+      });
+    }
   };
 
   const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
@@ -101,7 +102,11 @@ export default function CheckoutPage() {
 
             {/* Правая часть */}
             <div className="w-[450px]">
-              <CheckoutSidebar totalAmount={totalAmount} loading={loading || false} />
+              <CheckoutSidebar totalAmount={totalAmount} 
+              // loading={
+              //   loading || submitting
+              //   } 
+                />
             </div>
           </div>
         </form>

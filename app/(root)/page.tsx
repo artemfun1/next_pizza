@@ -10,7 +10,7 @@ import { Suspense } from 'react';
 import { GetSearchParams, findPizzas } from '@/shared/lib/find-pizzas';
 
 
-// "17/40"
+// "18/15"
 
 
 
@@ -21,7 +21,7 @@ export default async function Home({ searchParams }: { searchParams: GetSearchPa
     <>
       <Container className="mt-10">
         <Title text="Все пиццы" size="lg" className="font-extrabold" />
-      </Container>
+      </Container> 
 
       <TopBar categories={categories.filter((category) => category.products.length > 0)} />
 
