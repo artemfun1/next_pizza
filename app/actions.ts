@@ -1,9 +1,12 @@
 "use server";
 
+import { Resend } from "resend";
 import { prisma } from "@/prisma/prisma-client";
 import { CheckoutFormValues } from "@/shared/constants";
 import { OrderStatus } from "@prisma/client";
 import { cookies } from "next/headers";
+import { sendEmail } from "@/shared/lib";
+import { PayOrderTemplate } from "@/shared/components/shared/email-templates/pay-order";
 
 export async function createOrder(data: CheckoutFormValues) {
   try {
@@ -40,7 +43,7 @@ export async function createOrder(data: CheckoutFormValues) {
     if (userCart?.totalAmount === 0) {
       throw new Error("Cart is empty");
     }
-console.log(userCart)
+
     const order = await prisma.order.create({
       data: {
         token: cartToken,
@@ -52,6 +55,7 @@ console.log(userCart)
         totalAmount: userCart.totalAmount,
         status: OrderStatus.PENDING,
         items: JSON.stringify(userCart.items),
+        
       },
     });
 
@@ -70,7 +74,19 @@ console.log(userCart)
       },
     });
 
-    // return "https://www.youtube.com/";
+    const paymentUrl = "https://www.youtube.com/";
+
+    await sendEmail(
+      data.email,
+      "Next Pizza / Оплатите заказ #" + order.id,
+      PayOrderTemplate({
+        orderId: order.id,
+        totalAmount: order.totalAmount,
+        paymentUrl,
+      })
+    );
+
+    return paymentUrl;
   } catch (err) {
     console.log("[CreateOrder] Server error", err);
   }
