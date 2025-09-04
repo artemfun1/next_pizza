@@ -1,12 +1,12 @@
 "use server";
 
-import { Resend } from "resend";
 import { prisma } from "@/prisma/prisma-client";
 import { CheckoutFormValues } from "@/shared/constants";
 import { OrderStatus } from "@prisma/client";
 import { cookies } from "next/headers";
-import { sendEmail } from "@/shared/lib";
+import { createPayment, sendEmail } from "@/shared/lib";
 import { PayOrderTemplate } from "@/shared/components/shared/email-templates/pay-order";
+
 
 export async function createOrder(data: CheckoutFormValues) {
   try {
@@ -74,7 +74,26 @@ export async function createOrder(data: CheckoutFormValues) {
       },
     });
 
-    const paymentUrl = "https://www.youtube.com/";
+    const paymentData = await createPayment({
+      amount: order.totalAmount,
+      description: "Next Pizza / Оплата заказа #" + order.id,
+      orderId: order.id,
+    })
+
+    if(!paymentData){
+      throw new Error("Не удалось создать платеж");
+    }
+
+    await prisma.order.update({
+      where: {
+        id: order.id,
+      },
+      data: {
+        paymentId: paymentData.id,
+      },
+    });
+
+    const paymentUrl = paymentData.confirmation.confirmation_url
 
     await sendEmail(
       data.email,
@@ -82,9 +101,12 @@ export async function createOrder(data: CheckoutFormValues) {
       PayOrderTemplate({
         orderId: order.id,
         totalAmount: order.totalAmount,
-        paymentUrl,
+        paymentUrl
       })
+
     );
+
+
 
     return paymentUrl;
   } catch (err) {
