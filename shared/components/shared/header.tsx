@@ -10,6 +10,9 @@ import { CartButton } from './cart-button';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { ProfileButton } from './profile-button';
+import { AuthModal } from './modals/auth-modal'
+
+
 // import { AuthModal } from './modals';
 
 interface Props {
@@ -17,6 +20,7 @@ interface Props {
   hasCart?: boolean;
   className?: string;
 }
+
 
 export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, className }) => {
   const router = useRouter();
@@ -67,7 +71,8 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
 
         {/* Правая часть */}
         <div className="flex items-center gap-3">
-          {/* <AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} /> */}
+          
+          <AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
 
           <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
 
