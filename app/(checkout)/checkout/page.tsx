@@ -10,19 +10,19 @@ import {
   CheckoutAddressForm,
   CheckoutCart,
   CheckoutPersonalForm,
-} from '@/shared/components/shared';
+} from '@/shared/components';
 import { CheckoutFormValues, checkoutFormSchema } from '@/shared/constants';
 import { useCart } from '@/shared/hooks';
+import { createOrder } from '@/app/actions';
 import toast from 'react-hot-toast';
 import React from 'react';
-import { createOrder } from '@/app/actions'
-// import { useSession } from 'next-auth/react';
-// import { Api } from '@/shared/services/api-client';
+import { useSession } from 'next-auth/react';
+import { Api } from '@/shared/services/api-client';
 
 export default function CheckoutPage() {
   const [submitting, setSubmitting] = React.useState(false);
   const { totalAmount, updateItemQuantity, items, removeCartItem, loading } = useCart();
-  // const { data: session } = useSession();
+  const { data: session } = useSession();
 
   const form = useForm<CheckoutFormValues>({
     resolver: zodResolver(checkoutFormSchema),
@@ -36,23 +36,22 @@ export default function CheckoutPage() {
     },
   });
 
-  // React.useEffect(() => {
-  //   async function fetchUserInfo() {
-  //     const data = await Api.auth.getMe();
-  //     const [firstName, lastName] = data.fullName.split(' ');
+  React.useEffect(() => {
+    async function fetchUserInfo() {
+      const data = await Api.auth.getMe();
+      const [firstName, lastName] = data.fullName.split(' ');
 
-  //     form.setValue('firstName', firstName);
-  //     form.setValue('lastName', lastName);
-  //     form.setValue('email', data.email);
-  //   }
+      form.setValue('firstName', firstName);
+      form.setValue('lastName', lastName);
+      form.setValue('email', data.email);
+    }
 
-  //   if (session) {
-  //     fetchUserInfo();
-  //   }
-  // }, [session]);
+    if (session) {
+      fetchUserInfo();
+    }
+  }, [session]);
 
-  const onSubmit =  async(data: CheckoutFormValues) => {
-
+  const onSubmit = async (data: CheckoutFormValues) => {
     try {
       setSubmitting(true);
 
@@ -61,7 +60,7 @@ export default function CheckoutPage() {
       toast.error('Заказ успешно оформлен! 📝 Переход на оплату... ', {
         icon: '✅',
       });
-console.log(url)
+
       if (url) {
         location.href = url;
       }
@@ -102,11 +101,7 @@ console.log(url)
 
             {/* Правая часть */}
             <div className="w-[450px]">
-              <CheckoutSidebar totalAmount={totalAmount} 
-              // loading={
-              //   loading || submitting
-              //   } 
-                />
+              <CheckoutSidebar totalAmount={totalAmount} loading={loading || submitting} />
             </div>
           </div>
         </form>

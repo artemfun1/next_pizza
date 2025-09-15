@@ -12,9 +12,6 @@ import toast from 'react-hot-toast';
 import { ProfileButton } from './profile-button';
 import { AuthModal } from './modals/auth-modal'
 
-
-// import { AuthModal } from './modals';
-
 interface Props {
   hasSearch?: boolean;
   hasCart?: boolean;
@@ -38,6 +35,8 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
     if (searchParams.has('verified')) {
       toastMessage = 'Почта успешно подтверждена!';
     }
+
+
 
     if (toastMessage) {
       setTimeout(() => {
