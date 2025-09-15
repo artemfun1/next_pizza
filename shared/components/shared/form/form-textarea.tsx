@@ -10,7 +10,7 @@ interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   name: string;
   label?: string;
   required?: boolean;
-}
+}  
 
 export const FormTextarea: React.FC<Props> = ({
   className,

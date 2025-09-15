@@ -10,6 +10,7 @@
     "prisma:push": "prisma db push",
     "prisma:studio": "prisma studio",
     "prisma:seed": "prisma db seed",
+    "postinstall":"prisma generate",
     "depcheck": "depcheck"
   },
   "prisma": {

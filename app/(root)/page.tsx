@@ -9,8 +9,6 @@ import {
 import { Suspense } from "react";
 import { GetSearchParams, findPizzas } from "@/shared/lib/find-pizzas";
 
-// "22/54"
-
 export default async function Home({
   searchParams,
 }: {
